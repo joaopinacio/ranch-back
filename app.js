@@ -53,7 +53,7 @@ app.get('/test', function(req, res){
 	res.sendFile(__dirname + '/html/test/index.html');
 });
 
-app.get('/test', function(req, res){
+app.get('/testRoute', function(req, res){
 	res.json({
 		status: true,
 		message: 'Hello world',
