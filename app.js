@@ -31,7 +31,6 @@ app.use(express.urlencoded({ extended: true }));	// For parsing application/x-ww
 app.use(cookieParser());							// For parsing Cookie header and populate req.cookies with an object keyed by the cookie names.
 app.use(express.static(__dirname + '/html'));       // For let the HTML pages public
 app.use(cors(corsOpts));       						// For fixing CORS Problems
-app.set('trust proxy', 1);
 
 app.use(session({
     name: 'SessionCookie',
@@ -41,6 +40,7 @@ app.use(session({
 	proxy: true,
     cookie: { maxAge: 600000, httpOnly: false, sameSite: "none", secure: true } // Secure = True para usar o Secure do HTTPS
 }));
+app.set('trust proxy', 1);
 
 // Anything beginning with "/api" will go into this
 app.use('/api', require('./app/routes/api'));
