@@ -57,7 +57,7 @@ app.get('/test', function(req, res){
 app.get('/testRoute', function(req, res){
 	res.json({
 		status: true,
-		message: 'Hello world',
+		message: 'Hello world :D',
 		userLogged: req.session.user
 	});
 });
