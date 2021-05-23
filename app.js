@@ -40,7 +40,6 @@ app.use(session({
 	proxy: true,
     cookie: { maxAge: 600000, httpOnly: false, sameSite: "none", secure: true } // Secure = True para usar o Secure do HTTPS
 }));
-app.set('trust proxy', 1);
 
 // Anything beginning with "/api" will go into this
 app.use('/api', require('./app/routes/api'));
