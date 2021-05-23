@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 9090;
 const HOST = process.env.HOST || '0.0.0.0';
 
 const corsOpts = {
-	origin: 'https://gestao-de-pedidos.vercel.app/',
+	origin: 'https://gestao-de-pedidos.vercel.app',
 	methods: ['GET', 'POST'],
 	allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
 	credentials: true
