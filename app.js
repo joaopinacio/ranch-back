@@ -37,9 +37,9 @@ app.use(session({
     secret: 'Shsh!Secret!',
     resave: false,
     saveUninitialized: false,
+	proxy: true,
     cookie: { maxAge: 600000, httpOnly: false, sameSite: "none", secure: true } // Secure = True para usar o Secure do HTTPS
 }));
-app.set("trust proxy", "https://gestao-de-pedidos.vercel.app");
 
 // Anything beginning with "/api" will go into this
 app.use('/api', require('./app/routes/api'));
