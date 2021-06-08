@@ -4,6 +4,7 @@ const http = require('http').Server(app);
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const cors = require('cors');
+const client = require('./app/config/twilio.js');
 // const io = require('socket.io')(http);
 // const Chat = require('./app/event/Chat.js');
 
@@ -55,6 +56,15 @@ app.get('/test', function(req, res){
 });
 
 app.get('/testRoute', function(req, res){
+	client.messages 
+	.create({ 
+	   body: 'Hello world :D', 
+	   from: 'whatsapp:+14155238886',       
+	   to: 'whatsapp:+558196942699' 
+	 }) 
+	.then(message => console.log(message.sid)) 
+	.done();
+
 	res.json({
 		status: true,
 		message: 'Hello world :D',
