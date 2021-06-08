@@ -16,13 +16,14 @@ const ItemInOrderController = new ItensInOrdersController(ItemInOrder);
 require('express-group-routes');
 
 router.group((router) => {
-    // router.use(middlewareFunctions.auth);    // * authorize()
+    router.use(middlewareFunctions.auth);    // * authorize()
 
     // Test Get
     router.get('/test', (req, res) => {
-        await OrderController.getAll().then(response => {
-            res.status(response.statusCode)
-            res.json(response.data)
+        res.json({
+            status: true,
+            message: 'Hello world',
+            userLogged: req.session.user
         });
     });
 
