@@ -103,7 +103,7 @@ router.group((router) => {
     });
 
     router.post('/update', async (req, res) => {
-        await OrderController.update(req.body).then(responseUpdate => {
+        await OrderController.update(req.body).then(async responseUpdate => {
             await OrderController.getById(req.body.cdPedido).then(response => {
                 let messageWhats = "";            
                 switch (req.body.status) {
