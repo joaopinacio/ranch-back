@@ -119,6 +119,8 @@ router.group((router) => {
                     messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi CANCELADO!"
                     break;
             }
+
+            console.log(response.data);
             
             client.messages 
             .create({ 
