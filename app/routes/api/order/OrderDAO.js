@@ -125,10 +125,12 @@ router.group((router) => {
     router.post('/update', async (req, res) => {
         await OrderController.update(req.body).then(async responseUpdate => {
             await OrderController.getById(req.body.cdPedido).then(response => {
-                let messageWhats = "";            
+                let messageWhats = "";
+                let isCreate = false;
                 switch (req.body.status) {
                     case "CRIADO":
-                        messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi criado com sucesso!"
+                        messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi criado com sucesso!";
+                        isCreate = true;
                         break;
                     case "PREPARANDO":
                         messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" está sendo PREPARADO!"
@@ -141,14 +143,16 @@ router.group((router) => {
                         break;
                 }
     
-                client.messages 
-                .create({ 
-                   body: messageWhats, 
-                   from: 'whatsapp:+14155238886',       
-                   to: 'whatsapp:+55' + response.data.user.telefone
-                 }) 
-                .then(message => console.log(message.sid)) 
-                .done();
+                if(!isCreate){
+                    client.messages 
+                    .create({
+                       body: messageWhats,
+                       from: 'whatsapp:+14155238886',
+                       to: 'whatsapp:+55' + response.data.user.telefone
+                     })
+                    .then(message => console.log(message.sid))
+                    .done();
+                }
     
                 res.status(response.statusCode);
                 res.json(response.data);
