@@ -49,7 +49,7 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + '/html/index.html');
 });
 
-// Test
+// Testt
 app.get('/test', function(req, res){
 	res.sendFile(__dirname + '/html/test/index.html');
 });
