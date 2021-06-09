@@ -103,36 +103,36 @@ router.group((router) => {
     });
 
     router.post('/update', async (req, res) => {
-        await OrderController.update(req.body).then(response => {
-            let messageWhats = "";            
-            switch (req.body.status) {
-                case "CRIADO":
-                    messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi criado com sucesso!"
-                    break;
-                case "PREPARANDO":
-                    messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" está sendo PREPARADO!"
-                    break;
-                case "FINALIZADO":
-                    messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi ENTREGUE!"
-                    break;
-                case "CANCELADO":
-                    messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi CANCELADO!"
-                    break;
-            }
-
-            console.log(response.data);
-            
-            client.messages 
-            .create({ 
-               body: messageWhats, 
-               from: 'whatsapp:+14155238886',       
-               to: 'whatsapp:+55' + response.data.user.telefone
-             }) 
-            .then(message => console.log(message.sid)) 
-            .done();
-
-            res.status(response.statusCode);
-            res.json(response.data);
+        await OrderController.update(req.body).then(responseUpdate => {
+            await OrderController.getById(req.body.cdPedido).then(response => {
+                let messageWhats = "";            
+                switch (req.body.status) {
+                    case "CRIADO":
+                        messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi criado com sucesso!"
+                        break;
+                    case "PREPARANDO":
+                        messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" está sendo PREPARADO!"
+                        break;
+                    case "FINALIZADO":
+                        messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi ENTREGUE!"
+                        break;
+                    case "CANCELADO":
+                        messageWhats = "Seu pedido do número #"+ response.data.cdPedido +" foi CANCELADO!"
+                        break;
+                }
+    
+                client.messages 
+                .create({ 
+                   body: messageWhats, 
+                   from: 'whatsapp:+14155238886',       
+                   to: 'whatsapp:+55' + response.data.user.telefone
+                 }) 
+                .then(message => console.log(message.sid)) 
+                .done();
+    
+                res.status(response.statusCode);
+                res.json(response.data);
+            });
         });
     });
 
