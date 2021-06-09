@@ -14,6 +14,10 @@ const ItemInOrder = require('../../../model/ItemInOrder.js'); // import
 const ItensInOrdersController = require('../../../controller/ItemInOrder.js'); // import
 const ItemInOrderController = new ItensInOrdersController(ItemInOrder);
 
+const User = require('../../../model/User.js');
+const UsersController = require('../../../controller/User.js');
+const UserController = new UsersController(User);
+
 require('express-group-routes');
 
 router.group((router) => {
@@ -93,6 +97,11 @@ router.group((router) => {
                 });
             });
 
+            let userOrder;
+            await UserController.getById(responseOrder.userCdUsuario).then(response => {
+                userOrder = response.data;
+            });
+
             statusCode.orderStatusCode = responseOrder.statusCode;
             resultData.orderData = responseOrder.data;
 
@@ -100,7 +109,7 @@ router.group((router) => {
             .create({ 
                body: "Seu pedido do número #"+ responseOrder.data.cdPedido +" foi criado com sucesso!", 
                from: 'whatsapp:+14155238886',       
-               to: 'whatsapp:+55' + responseOrder.data.user.telefone
+               to: 'whatsapp:+55' + userOrder.telefone
              }) 
             .then(message => console.log(message.sid)) 
             .done();
