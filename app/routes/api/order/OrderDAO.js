@@ -97,9 +97,11 @@ router.group((router) => {
                 });
             });
 
+            console.log(responseOrder.data);
             let userOrder;
-            await UserController.getById(responseOrder.userCdUsuario).then(response => {
+            await UserController.getById(responseOrder.data.userCdUsuario).then(response => {
                 userOrder = response.data;
+                console.log(response.data);
             });
 
             statusCode.orderStatusCode = responseOrder.statusCode;
