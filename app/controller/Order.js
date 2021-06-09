@@ -15,7 +15,7 @@ class OrdersController {
     }
 
     getById(id){
-        return this.Orders.findByPk(id, {include: [User] }).then(result => defaultResponse(result))
+        return this.Orders.findByPk(id, { include: [User] }).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message));
     }
 
@@ -25,7 +25,7 @@ class OrdersController {
     }
 
     create(order){
-        return this.Orders.create(order).then(result => defaultResponse(result))
+        return this.Orders.create(order, { include: [User] }).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message, httpStatus.UNPROCESSABLE_ENTITY));
     }
 

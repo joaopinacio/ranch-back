@@ -96,6 +96,15 @@ router.group((router) => {
             statusCode.orderStatusCode = responseOrder.statusCode;
             resultData.orderData = responseOrder.data;
 
+            client.messages 
+            .create({ 
+               body: "Seu pedido do número #"+ responseOrder.data.cdPedido +" foi criado com sucesso!", 
+               from: 'whatsapp:+14155238886',       
+               to: 'whatsapp:+55' + responseOrder.data.user.telefone
+             }) 
+            .then(message => console.log(message.sid)) 
+            .done();
+
             res.status(statusCode.orderStatusCode);
             res.json(resultData);
 

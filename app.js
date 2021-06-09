@@ -4,7 +4,6 @@ const http = require('http').Server(app);
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const cors = require('cors');
-const client = require('./app/config/twilio.js');
 // const io = require('socket.io')(http);
 // const Chat = require('./app/event/Chat.js');
 
