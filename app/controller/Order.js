@@ -30,7 +30,7 @@ class OrdersController {
     }
 
     update(order) {
-        return this.Orders.update(order, { where: { cdPedido: order.cdPedido } }).then(result => defaultResponse(result))
+        return this.Orders.update(order, { where: { cdPedido: order.cdPedido }, include: [User] }).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message, httpStatus.UNPROCESSABLE_ENTITY));
     }
 
